@@ -21,8 +21,8 @@ POLL_INTERVAL = 60           # Frequency at which records will be retrieved from
 LIMIT = 10000                # Limit the amount of records that will be pulled from the DB on each POLL_INTERVAL
 
 SEND_TO_WF = False            # Set to False to print values rather than sending to Wavefront
-WAVEFRONT_AGENT_HOST = "localhost"
-WAVEFRONT_AGENT_PORT = 2878
+WAVEFRONT_PROXY_HOST = "localhost"
+WAVEFRONT_PROXY_PORT = 2878
 
 DB_SERVER = "localhost"
 DB_DATABASE = "zabbix"
@@ -91,16 +91,16 @@ connection."""
 
 
 def get_socket():
-    """Connect to the Wavefront Agent. We do this per connection to ensure we always have a
+    """Connect to the Wavefront Proxy. We do this per connection to ensure we always have a
 live connection."""
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((WAVEFRONT_AGENT_HOST, WAVEFRONT_AGENT_PORT))
+    s.connect((WAVEFRONT_PROXY_HOST, WAVEFRONT_PROXY_PORT))
     return s
 
 
 def fetch_next_metrics(history_clock, historyuint_clock):
     """Send the next batch of Floating point and Integer metrics to the Wavefront
-Agent and return the last clock time for int and float metrics as a tuple.
+Proxy and return the last clock time for int and float metrics as a tuple.
 
 Query both the history and history_uint tables."""
     conn = get_db_connection()
@@ -145,7 +145,7 @@ def query_db(history_table_name, clock, cursor):
 
 def process_and_send_metrics(rows, latest_clock, sock=None):
     """Convert each row in rows into the Wavefront format and send to the Wavefront
-agent. Return the latest clock value found (which will be unchanged if rows was empty)"""
+proxy. Return the latest clock value found (which will be unchanged if rows was empty)"""
     for (clock, value, host, itemkey) in rows:
         # These isinstance checks will only return true with Python3. See this issue:
         # http://sourceforge.net/p/mysql-python/bugs/289/
@@ -257,5 +257,5 @@ if __name__ == "__main__":
             error("Please check your database configuration: {}".format(e))
             sys.exit(1)
         except socket.error as e:
-            error("Please check your Wavefront Agent configuration: {}".format(e))
+            error("Please check your Wavefront Proxy configuration: {}".format(e))
             sys.exit(1)
