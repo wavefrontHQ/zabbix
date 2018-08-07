@@ -4,7 +4,7 @@
 Tested against Zabbix 2.2 with MySQL back end.
 
 *** Java
-- [Java version of Zabbix adapter](zabbix_java/README.md) is now available.
+- [[zabbix_java/README.md][Java version of Zabbix adapter]] is now available.
 
 *** Python
 - The script is written in Python
