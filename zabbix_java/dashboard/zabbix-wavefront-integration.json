@@ -1,0 +1,881 @@
+{
+  "name": "Zabbix Wavefront Integration",
+  "description": "",
+  "eventFilterType": "BYCHART",
+  "eventQuery": "",
+  "defaultTimeWindow": "2h",
+  "url": "zabbix-wavefront-integration",
+  "displayDescription": false,
+  "displaySectionTableOfContents": true,
+  "displayQueryParameters": false,
+  "chartTitleScalar": 0,
+  "sections": [
+    {
+      "name": "Data Collection",
+      "rows": [
+        {
+          "charts": [
+            {
+              "name": "Welcome to ",
+              "sources": [
+                {
+                  "name": "New Query",
+                  "query": "",
+                  "scatterPlotSource": "Y",
+                  "querybuilderSerialization": "{\"_v\":1,\"metric\":\"\",\"filters\":[[],\"and\"],\"functions\":[]}",
+                  "querybuilderEnabled": true,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": "Units",
+              "base": 0,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "chartSettings": {
+                "type": "markdown-widget",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": false,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT",
+                "plainMarkdownContent": "![zabbix](https://assets.zabbix.com/img/logo.svg \"zabbix logo\")\n"
+              },
+              "summarization": "MEAN"
+            },
+            {
+              "name": "About this dashboard",
+              "sources": [
+                {
+                  "name": "New Query",
+                  "query": "",
+                  "scatterPlotSource": "Y",
+                  "querybuilderSerialization": "{\"_v\":1,\"metric\":\"\",\"filters\":[[],\"and\"],\"functions\":[]}",
+                  "querybuilderEnabled": true,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": "Units",
+              "base": 0,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "chartSettings": {
+                "type": "markdown-widget",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": false,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT",
+                "plainMarkdownContent": "# Zabbix Integration Dashboard #\nThis dashboard monitors the activities related to zabbix adapter that extracts metrics from Zabbix Server and transmits it to Wavefront. All the metrics can be observed under **zabbix.integration**"
+              },
+              "summarization": "MEAN"
+            },
+            {
+              "name": "Incoming Data",
+              "sources": [
+                {
+                  "name": "history",
+                  "query": "ts(\"zabbix.integration.history.sent\")",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "sourceDescription": ""
+                },
+                {
+                  "name": "New Query",
+                  "query": "ts(\"zabbix.integration.history_uint.sent\")",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": " Points",
+              "base": 1,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "description": "",
+              "chartSettings": {
+                "type": "line",
+                "lineType": "cardinal",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": false,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT",
+                "sparklineDisplayValueType": "VALUE",
+                "sparklineDisplayColor": "",
+                "sparklineDisplayHorizontalPosition": "MIDDLE",
+                "sparklineDisplayFontSize": "100",
+                "sparklineSize": "BOTTOM",
+                "sparklineValueColorMapApplyTo": "TEXT",
+                "sparklineDecimalPrecision": 2
+              },
+              "summarization": "MEAN"
+            }
+          ],
+          "heightFactor": 100
+        },
+        {
+          "charts": [
+            {
+              "name": "Ingestion Lags",
+              "sources": [
+                {
+                  "name": "history",
+                  "query": "ts(\"zabbix.integration.history.timeLag\")",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "sourceDescription": ""
+                },
+                {
+                  "name": "history_uint",
+                  "query": "ts(\"zabbix.integration.history_uint.timeLag\")",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": "seconds",
+              "base": 0,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "chartSettings": {
+                "type": "line",
+                "lineType": "cardinal",
+                "stackType": "zero",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": false,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT"
+              },
+              "summarization": "MEAN"
+            },
+            {
+              "name": "Cycle Interval",
+              "sources": [
+                {
+                  "name": "cycle marks",
+                  "query": "600 / msum(10m, sum(ts(\"zabbix.integration.*.cycle.mark\")) / 2)",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": " seconds",
+              "base": 1,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "description": "",
+              "chartSettings": {
+                "type": "sparkline",
+                "lineType": "cardinal",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": false,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT",
+                "sparklineDisplayValueType": "VALUE",
+                "sparklineDisplayColor": "",
+                "sparklineDisplayHorizontalPosition": "MIDDLE",
+                "sparklineDisplayFontSize": "100",
+                "sparklineSize": "NONE",
+                "sparklineValueColorMapApplyTo": "TEXT",
+                "sparklineDecimalPrecision": 1
+              },
+              "summarization": "MEAN"
+            },
+            {
+              "name": "Ingestion Rates",
+              "sources": [
+                {
+                  "name": "rate",
+                  "query": "ts(\"zabbix.integration.*.sentRate\")",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "secondaryAxis": false,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": "points / ms",
+              "base": 1,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "description": "",
+              "chartSettings": {
+                "type": "line",
+                "lineType": "cardinal",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": false,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT"
+              },
+              "summarization": "MEAN"
+            }
+          ],
+          "heightFactor": 100
+        }
+      ]
+    },
+    {
+      "name": "Integration Performance",
+      "rows": [
+        {
+          "charts": [
+            {
+              "name": "Execution Time Per Cycle",
+              "sources": [
+                {
+                  "name": "execution time",
+                  "query": "ts(\"zabbix.integration.*.cycle.time\")",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "secondaryAxis": false,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": "ms",
+              "base": 1,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "description": "",
+              "chartSettings": {
+                "type": "line",
+                "lineType": "cardinal",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": true,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT"
+              },
+              "summarization": "MEAN"
+            },
+            {
+              "name": "DB Connection Time",
+              "sources": [
+                {
+                  "name": "db conn time",
+                  "query": "ts(\"zabbix.integration.*.dbconn.time\")",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "secondaryAxis": false,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": "ms",
+              "base": 1,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "description": "",
+              "chartSettings": {
+                "type": "line",
+                "lineType": "cardinal",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": true,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT"
+              },
+              "summarization": "MEAN"
+            },
+            {
+              "name": "Query Prep and Execution Time",
+              "sources": [
+                {
+                  "name": "query execution",
+                  "query": "ts(\"zabbix.integration.*.queryexec.time\")",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "secondaryAxis": false,
+                  "sourceDescription": ""
+                },
+                {
+                  "name": "query prep",
+                  "query": "ts(\"zabbix.integration.*.queryprep.time\")",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "secondaryAxis": false,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": "ms",
+              "base": 1,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "description": "",
+              "chartSettings": {
+                "type": "line",
+                "lineType": "cardinal",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": true,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT"
+              },
+              "summarization": "MEAN"
+            },
+            {
+              "name": "Result Set Iteration Time",
+              "sources": [
+                {
+                  "name": "result set iteration",
+                  "query": "ts(\"zabbix.integration.*.resultitr.time\")",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "secondaryAxis": false,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": "ms",
+              "base": 1,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "description": "",
+              "chartSettings": {
+                "type": "line",
+                "lineType": "cardinal",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": true,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT"
+              },
+              "summarization": "MEAN"
+            }
+          ],
+          "heightFactor": 100
+        },
+        {
+          "charts": [
+            {
+              "name": "Cycle Beats",
+              "sources": [
+                {
+                  "name": "cycle marks",
+                  "query": "msum(1m, sum(ts(\"zabbix.integration.*.cycle.mark\")) / 2)",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": " Per / min",
+              "base": 0,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "chartSettings": {
+                "type": "sparkline",
+                "lineType": "cardinal",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": false,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT",
+                "sparklineDisplayValueType": "VALUE",
+                "sparklineDisplayColor": "",
+                "sparklineDisplayHorizontalPosition": "MIDDLE",
+                "sparklineDisplayFontSize": "100",
+                "sparklineSize": "BOTTOM",
+                "sparklineValueColorMapApplyTo": "TEXT",
+                "sparklineDecimalPrecision": 1
+              },
+              "summarization": "MEAN"
+            }
+          ],
+          "heightFactor": 100
+        }
+      ]
+    },
+    {
+      "name": "JVM",
+      "rows": [
+        {
+          "charts": [
+            {
+              "name": "Number of CPUs",
+              "sources": [
+                {
+                  "name": "cpu count",
+                  "query": "ts(\"zabbix.integration.system.cpu.count\")",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "secondaryAxis": false,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": " CPUs",
+              "base": 1,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "description": "",
+              "chartSettings": {
+                "type": "sparkline",
+                "lineType": "cardinal",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": false,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT",
+                "sparklineDisplayValueType": "VALUE",
+                "sparklineDisplayColor": "",
+                "sparklineDisplayHorizontalPosition": "MIDDLE",
+                "sparklineDisplayFontSize": "100",
+                "sparklineSize": "NONE",
+                "sparklineValueColorMapApplyTo": "TEXT",
+                "sparklineDecimalPrecision": 0
+              },
+              "summarization": "MEAN"
+            },
+            {
+              "name": "Load Average 1m",
+              "sources": [
+                {
+                  "name": "cpu",
+                  "query": "ts(\"zabbix.integration.system.load.average.1m\")",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "secondaryAxis": false,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": "Units",
+              "base": 1,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "description": "",
+              "chartSettings": {
+                "type": "line",
+                "lineType": "cardinal",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": false,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT"
+              },
+              "summarization": "MEAN"
+            },
+            {
+              "name": "Memory Allocated",
+              "sources": [
+                {
+                  "name": "Memory used",
+                  "query": "sum(ts(\"zabbix.integration.jvm.memory.committed\"))",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": "B",
+              "base": 0,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "chartSettings": {
+                "type": "sparkline",
+                "lineType": "cardinal",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": true,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": true,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT",
+                "sparklineDisplayValueType": "VALUE",
+                "sparklineDisplayColor": "",
+                "sparklineDisplayHorizontalPosition": "MIDDLE",
+                "sparklineDisplayFontSize": "100",
+                "sparklineSize": "BOTTOM",
+                "sparklineValueColorMapApplyTo": "TEXT",
+                "sparklineDecimalPrecision": 1
+              },
+              "summarization": "MEAN"
+            }
+          ],
+          "heightFactor": 100
+        },
+        {
+          "charts": [
+            {
+              "name": "Threads",
+              "sources": [
+                {
+                  "name": "Threads",
+                  "query": "ts(\"zabbix.integration.jvm.threads.*\")",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "secondaryAxis": false,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": "Units",
+              "base": 1,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "description": "",
+              "chartSettings": {
+                "type": "line",
+                "lineType": "cardinal",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": false,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT"
+              },
+              "summarization": "MEAN"
+            },
+            {
+              "name": "JVM Memory Used",
+              "sources": [
+                {
+                  "name": "memory",
+                  "query": "ts(\"zabbix.integration.jvm.memory.used\")",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": "Units",
+              "base": 1,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "description": "",
+              "chartSettings": {
+                "type": "stacked-area",
+                "stackType": "zero",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": false,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT"
+              },
+              "summarization": "MEAN"
+            },
+            {
+              "name": "Garbage Collection",
+              "sources": [
+                {
+                  "name": "GC",
+                  "query": "ts(\"zabbix.integration.jvm.gc.*\")",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "secondaryAxis": false,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": "Units",
+              "base": 1,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "description": "",
+              "chartSettings": {
+                "type": "line",
+                "lineType": "cardinal",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": false,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT"
+              },
+              "summarization": "MEAN"
+            },
+            {
+              "name": "Classes Loaded",
+              "sources": [
+                {
+                  "name": "classloading",
+                  "query": "ts(\"zabbix.integration.jvm.classes.*\")",
+                  "scatterPlotSource": "Y",
+                  "querybuilderEnabled": false,
+                  "secondaryAxis": false,
+                  "sourceDescription": ""
+                }
+              ],
+              "units": "Units",
+              "base": 1,
+              "noDefaultEvents": false,
+              "interpolatePoints": false,
+              "includeObsoleteMetrics": false,
+              "description": "",
+              "chartSettings": {
+                "type": "line",
+                "lineType": "cardinal",
+                "windowing": "full",
+                "autoColumnTags": false,
+                "tagMode": "all",
+                "numTags": 4,
+                "customTags": [],
+                "y1Units": "",
+                "y0ScaleSIBy1024": false,
+                "y1ScaleSIBy1024": false,
+                "y0UnitAutoscaling": false,
+                "y1UnitAutoscaling": false,
+                "fixedLegendEnabled": false,
+                "fixedLegendUseRawStats": false,
+                "fixedLegendPosition": "RIGHT",
+                "fixedLegendDisplayStats": [
+                  "CURRENT"
+                ],
+                "fixedLegendFilterSort": "TOP",
+                "fixedLegendFilterLimit": 5,
+                "fixedLegendFilterField": "CURRENT"
+              },
+              "summarization": "MEAN"
+            }
+          ],
+          "heightFactor": 100
+        }
+      ]
+    }
+  ],
+  "parameterDetails": {}
+}
