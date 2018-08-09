@@ -1,10 +1,10 @@
 {
-  "name": "Zabbix Wavefront Integration",
+  "name": "Java Zabbix Integration",
   "description": "",
   "eventFilterType": "BYCHART",
   "eventQuery": "",
   "defaultTimeWindow": "2h",
-  "url": "zabbix-wavefront-integration",
+  "url": "integration-zabbix-java",
   "displayDescription": false,
   "displaySectionTableOfContents": true,
   "displayQueryParameters": false,
