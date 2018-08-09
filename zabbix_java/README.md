@@ -5,8 +5,8 @@
 #### Zabbix
 Tested against Zabbix 2.2 with MySQL back end.
 
-#### Java >= 1.8
-- The application is writtin in Java, and requires JDK 1.8 or up
+#### Prerequisites
+- The application is writtin in Java, and requires JDK 1.8 or up.
 - maven is required to compile and build the application package.
 - please see the pom.xml for details on the dependency library which includes the following:
  - mysql connector 5.1.6
@@ -96,7 +96,7 @@ java -jar wfzabbix.jar
 
 The adapter requires 1) wavefront proxy, and 2) zabbix server's main MySQL database to be running and accessible. If either of them are not running or reachable, the adapter will fail with exception stack trace.
 
-If everything is running fine, adapter will run with the specified interval (default: 5 seconds), run the query to extract Zabbix metrics, converts the metrics to Wavefront format, and send it to Wavefront proxy.
+If everything is running fine, adapter will run with the specified interval (default: 5 seconds), poll Zabbix database to extract any new Zabbix metrics, converts the metrics to Wavefront format, and send it to Wavefront proxy.
 
 In addition to the metrics coming from Zabbix server, there are additional metrics that monitors the zabbix adapter itself, making it convenient for users to monitor its operation using Wavefront.
 
