@@ -1,11 +1,8 @@
-## Java Zabbix Data Adapter
+## Zabbix Java Data Adapter
 
-### Pre-requisites
+This is a Java implmementation to poll, collect, and transmit Zabbix metrics to Wavefront. It was tested against Zabbix 2.2 with MySQL database as back end.
 
-#### Zabbix
-Tested against Zabbix 2.2 with MySQL back end.
-
-#### Prerequisites
+#### Pre-requisites
 - The application is writtin in Java, and requires JDK 1.8 or up.
 - maven is required to compile and build the application package.
 - please see the pom.xml for details on the dependency library which includes the following:
