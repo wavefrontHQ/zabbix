@@ -22,7 +22,7 @@ mvn package
 
 Maven build will produce **wfzabbix.jar** file which you can use to run the adapter.
 
-In order to run the adapter properly, you need two properties files: config.properties and log4j.properties located in the same directory as wfzabbix.jar. If the two files does not exist in the directory where wfzabbix.jar is located, it will try to use the default setting as defined as following:
+In order to run the adapter properly, you need two properties files: *config.properties* and *log4j.properties* located in the same directory as wfzabbix.jar. If the two files does not exist in the directory where wfzabbix.jar is located, it will try to use the default setting as defined as following:
 
 **config.properties**
 ```
