@@ -170,7 +170,7 @@ proxy. Return the latest clock value found (which will be unchanged if rows was 
 
         # sock will be None if configuration option SEND_TO_WF is False
         if sock:
-            sock.send(di_msg)
+            sock.sendall(di_msg.encode('utf-8'))
         else:
             print(di_msg)
 
