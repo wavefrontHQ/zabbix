@@ -1,7 +1,7 @@
 ** Zabbix Data Adapter
 *** Pre-requisites
 **** Zabbix
-Tested against Zabbix 2.2 with MySQL back end.
+Tested against Zabbix 3.0 with MySQL back end.
 **** Python
 - The script is written in Python
 - Tested on Python 2.7.6 and Python 3.4.0.
