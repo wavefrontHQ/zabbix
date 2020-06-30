@@ -158,7 +158,11 @@ proxy. Return the latest clock value found (which will be unchanged if rows was 
         host = replace_punctuation_and_whitespace(host)
         host = host.replace("_", ".")  # Make sure no underscore in host name
 
-        di_msg = "{0}{1} {2} {3} host={4}\n".format(ZABBIX_PREFIX, metric,
+        if metric.startswith("zabbix."):
+            di_msg = "{0}{1} {2} {3} host={4}\n".format("", metric,
+                                                    value, clock, host)
+        else:
+            di_msg = "{0}{1} {2} {3} host={4}\n".format(ZABBIX_PREFIX, metric,
                                                     value, clock, host)
 
         if clock > latest_clock:
