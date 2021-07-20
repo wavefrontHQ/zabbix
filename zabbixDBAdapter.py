@@ -149,9 +149,9 @@ proxy. Return the latest clock value found (which will be unchanged if rows was 
     for (clock, value, host, itemkey) in rows:
         # These isinstance checks will only return true with Python3. See this issue:
         # http://sourceforge.net/p/mysql-python/bugs/289/
-        if isinstance(host, bytes):
+        if isinstance(host, (bytes, bytearray)):
             host = host.decode()
-        if isinstance(itemkey, bytes):
+        if isinstance(itemkey, (bytes, bytearray)):
             itemkey = itemkey.decode()
 
         metric = convert_key_to_wf_metric(itemkey)
