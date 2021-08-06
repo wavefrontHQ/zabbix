@@ -109,12 +109,12 @@ Query both the history and history_uint tables."""
     # Process the history table which contains floating point metrics
     float_rows = query_db(HISTORY_TABLE, history_clock, cursor)
     float_points_count = len(float_rows)
-    history_clock = process_and_send_metrics(float_rows, history_clock, sock)
+    history_clock = process_and_send_metrics(float_rows, history_clock)
 
     # Process the history_uint table which contains integer metrics
     int_rows = query_db(HISTORY_TABLE_UINT, historyuint_clock, cursor)
     int_points_count = len(int_rows)
-    historyuint_clock = process_and_send_metrics(int_rows, historyuint_clock, sock)
+    historyuint_clock = process_and_send_metrics(int_rows, historyuint_clock)
 
     cursor.close()
     conn.close()
@@ -138,7 +138,7 @@ def query_db(history_table_name, clock, cursor):
     return cursor.fetchall()
 
 
-def process_and_send_metrics(rows, latest_clock, sock=None):
+def process_and_send_metrics(rows, latest_clock):
     """Convert each row in rows into the Wavefront format and send to the Wavefront
 proxy. Return the latest clock value found (which will be unchanged if rows was empty)"""
     sock = None
