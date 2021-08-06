@@ -105,9 +105,6 @@ Proxy and return the last clock time for int and float metrics as a tuple.
 Query both the history and history_uint tables."""
     conn = get_db_connection()
     cursor = conn.cursor()
-    sock = None
-    if SEND_TO_WF:
-        sock = get_socket()
 
     # Process the history table which contains floating point metrics
     float_rows = query_db(HISTORY_TABLE, history_clock, cursor)
@@ -121,8 +118,6 @@ Query both the history and history_uint tables."""
 
     cursor.close()
     conn.close()
-    if SEND_TO_WF:
-        sock.close()
 
     print("Processed {} Float Points and {} Integer Points. Press C-c to terminate.".format(
         float_points_count, int_points_count))
@@ -146,6 +141,9 @@ def query_db(history_table_name, clock, cursor):
 def process_and_send_metrics(rows, latest_clock, sock=None):
     """Convert each row in rows into the Wavefront format and send to the Wavefront
 proxy. Return the latest clock value found (which will be unchanged if rows was empty)"""
+    sock = None
+    if SEND_TO_WF:
+        sock = get_socket()
     for (clock, value, host, itemkey) in rows:
         # These isinstance checks will only return true with Python3. See this issue:
         # http://sourceforge.net/p/mysql-python/bugs/289/
@@ -177,7 +175,8 @@ proxy. Return the latest clock value found (which will be unchanged if rows was 
             sock.sendall(di_msg.encode('utf-8'))
         else:
             print(di_msg)
-
+    if SEND_TO_WF:
+        sock.close()
     return latest_clock
 
 
