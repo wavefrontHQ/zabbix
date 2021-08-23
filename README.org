@@ -7,7 +7,7 @@ Tested against Zabbix 3.0 with MySQL back end.
 - Tested on Python 2.7.6 and Python 3.4.0.
 - It uses the mysql.connector library. Please ensure this is installed:
   - CentOS :: sudo yum install mysql-connector-python
-  - Ubuntu :: sudo pip3 install mysql.connector
+  - Ubuntu :: sudo pip3 install mysql-connector-python
   - Additional Help :: If the package is not found see: http://dev.mysql.com/doc/connector-python/en/connector-python-installation-binary.html for more details.
 *** Configuring the script
 At the top of the script there are various configuration parameters. You will need to modify the DB_ ones as appropriate for your Zabbix database. Other options can be left at their defaults if you wish.
