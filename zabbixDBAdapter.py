@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from __future__ import print_function
+from wavefront_sdk.client_factory import WavefrontClientFactory
 
 import os
 import sys
@@ -90,39 +91,39 @@ connection."""
     return conn
 
 
-def get_socket():
+def get_wavefront_client():
     """Connect to the Wavefront Proxy. We do this per connection to ensure we always have a
 live connection."""
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((WAVEFRONT_PROXY_HOST, WAVEFRONT_PROXY_PORT))
-    return s
+    client_factory = WavefrontClientFactory()
+    client_factory.add_client(
+    url="proxy://{}:{}".format(WAVEFRONT_PROXY_HOST, WAVEFRONT_PROXY_PORT),
+        max_queue_size=50000,
+        batch_size=10000,
+        flush_interval_seconds=5)
+    wavefront_sender = client_factory.get_client()
+    return wavefront_sender
 
 
-def fetch_next_metrics(history_clock, historyuint_clock):
+def fetch_next_metrics(history_clock, historyuint_clock, wavefront_sender):
     """Send the next batch of Floating point and Integer metrics to the Wavefront
 Proxy and return the last clock time for int and float metrics as a tuple.
 
 Query both the history and history_uint tables."""
     conn = get_db_connection()
     cursor = conn.cursor()
-    sock = None
-    if SEND_TO_WF:
-        sock = get_socket()
 
     # Process the history table which contains floating point metrics
     float_rows = query_db(HISTORY_TABLE, history_clock, cursor)
     float_points_count = len(float_rows)
-    history_clock = process_and_send_metrics(float_rows, history_clock, sock)
+    history_clock = process_and_send_metrics(float_rows, history_clock, wavefront_sender)
 
     # Process the history_uint table which contains integer metrics
     int_rows = query_db(HISTORY_TABLE_UINT, historyuint_clock, cursor)
     int_points_count = len(int_rows)
-    historyuint_clock = process_and_send_metrics(int_rows, historyuint_clock, sock)
+    historyuint_clock = process_and_send_metrics(int_rows, historyuint_clock, wavefront_sender)
 
     cursor.close()
     conn.close()
-    if SEND_TO_WF:
-        sock.close()
 
     print("Processed {} Float Points and {} Integer Points. Press C-c to terminate.".format(
         float_points_count, int_points_count))
@@ -143,7 +144,7 @@ def query_db(history_table_name, clock, cursor):
     return cursor.fetchall()
 
 
-def process_and_send_metrics(rows, latest_clock, sock=None):
+def process_and_send_metrics(rows, latest_clock, wavefront_sender=None, tags=None):
     """Convert each row in rows into the Wavefront format and send to the Wavefront
 proxy. Return the latest clock value found (which will be unchanged if rows was empty)"""
     for (clock, value, host, itemkey) in rows:
@@ -172,9 +173,9 @@ proxy. Return the latest clock value found (which will be unchanged if rows was 
             warning("Cannot process Zabbix item with key_: {} as it contains no . character".format(itemkey))
             continue
 
-        # sock will be None if configuration option SEND_TO_WF is False
-        if sock:
-            sock.sendall(di_msg.encode('utf-8'))
+        # wavefront_sender will be None if configuration option SEND_TO_WF is False
+        if wavefront_sender:
+            wavefront_sender.send_metric(metric, value, clock, host, tags)
         else:
             print(di_msg)
 
@@ -246,10 +247,14 @@ if __name__ == "__main__":
     # Listen for C-c and exit cleanly
     signal.signal(signal.SIGINT, signal_handler)
 
+    wavefront_sender = None
+    if SEND_TO_WF:
+        wavefront_sender = get_wavefront_client()
+
     # Loop forever (unless killed by SIGINT) or exception caught
     while(True):
         try:
-            history_clock, historyuint_clock = fetch_next_metrics(history_clock, historyuint_clock)
+            history_clock, historyuint_clock = fetch_next_metrics(history_clock, historyuint_clock, wavefront_sender)
 
             msg = "Latest Float Point: {}. Latest Integer Point: {}."
             print(msg.format(format_clock(history_clock), format_clock(historyuint_clock)))
@@ -262,4 +267,7 @@ if __name__ == "__main__":
             sys.exit(1)
         except socket.error as e:
             error("Please check your Wavefront Proxy configuration: {}".format(e))
+            if SEND_TO_WF:
+                wavefront_sender.flush_now()
+                wavefront_sender.close()
             sys.exit(1)
