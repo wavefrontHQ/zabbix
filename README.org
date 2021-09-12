@@ -9,6 +9,13 @@ Tested against Zabbix 3.0 with MySQL back end.
   - CentOS :: sudo yum install mysql-connector-python
   - Ubuntu :: sudo pip3 install mysql-connector-python
   - Additional Help :: If the package is not found see: http://dev.mysql.com/doc/connector-python/en/connector-python-installation-binary.html for more details.
+**** wavefront-sdk-python
+Install wavefront-sdk-python
+
+#+BEGIN_EXAMPLE
+pip install wavefront-sdk-python
+#+END_EXAMPLE
+
 *** Configuring the script
 At the top of the script there are various configuration parameters. You will need to modify the DB_ ones as appropriate for your Zabbix database. Other options can be left at their defaults if you wish.
 
