@@ -205,7 +205,7 @@ def just_one_dot(text):
 
 def prefix_metric(metric):
     """Apply metric prefix if the collected metrics does not start with 'zabbix.'"""
-    if metric.startswith("zabbix."):
+    if metric.startswith(ZABBIX_PREFIX):
         return (metric)
     else:
         return (ZABBIX_PREFIX + metric)
