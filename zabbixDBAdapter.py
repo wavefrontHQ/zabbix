@@ -159,17 +159,10 @@ proxy. Return the latest clock value found (which will be unchanged if rows was 
         host = replace_punctuation_and_whitespace(host)
         host = host.replace("_", ".")  # Make sure no underscore in host name
 
-        if metric.startswith("zabbix."):
-            di_msg = "{0}{1} {2} {3} host={4}\n".format("", metric,
-                                                    value, clock, host)
-        else:
-            di_msg = "{0}{1} {2} {3} host={4}\n".format(ZABBIX_PREFIX, metric,
-                                                    value, clock, host)
-
         if clock > latest_clock:
             latest_clock = clock
         # Wavefront metric names must include at least one .
-        if "." not in di_msg:
+        if "." not in metric:
             warning("Cannot process Zabbix item with key_: {} as it contains no . character".format(itemkey))
             continue
 
@@ -177,6 +170,8 @@ proxy. Return the latest clock value found (which will be unchanged if rows was 
         if wavefront_sender:
             wavefront_sender.send_metric(metric, value, clock, host, tags)
         else:
+            di_msg = "{0}{1} {2} host={3}\n".format(metric,
+                                                    value, clock, host)
             print(di_msg)
 
     return latest_clock
@@ -192,6 +187,7 @@ lower case. """
     metric = replace_punctuation_and_whitespace(key)
     metric = remove_trailing_dots(metric)
     metric = just_one_dot(metric)
+    metric = prefix_metric(metric)
     metric = metric.lower()
     return metric
 
@@ -206,6 +202,13 @@ def just_one_dot(text):
     """Some Zabbix metrics can end up with multiple . characters. Replace with a single one"""
     rx = re.compile(r"\.+")
     return rx.sub(".", text)
+
+def prefix_metric(metric):
+    """Apply metric prefix if the collected metrics does not start with 'zabbix.'"""
+    if metric.startswith("zabbix."):
+        return (metric)
+    else:
+        return (ZABBIX_PREFIX + metric)
 
 
 def remove_trailing_dots(text):
