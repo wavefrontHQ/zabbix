@@ -162,9 +162,14 @@ def query_db(history_table_name, clock, cursor):
 
 
 def process_and_send_metrics(rows, latest_clock, wavefront_sender, tags):
+<<<<<<< HEAD
     """Convert each row in rows into the Wavefront format and send to the
 Wavefront proxy. Return the latest clock value found (which will be unchanged
 if rows was empty)"""
+=======
+    """Convert each row in rows into the Wavefront format and send to the Wavefront
+proxy. Return the latest clock value found (which will be unchanged if rows was empty)"""
+>>>>>>> c53cd80 (fix(zabbix): remove none for wavefront_sender and tags)
     for (clock, value, host, itemkey) in rows:
         # These isinstance checks will only return true with Python3.
         # See this issue: http://sourceforge.net/p/mysql-python/bugs/289/
