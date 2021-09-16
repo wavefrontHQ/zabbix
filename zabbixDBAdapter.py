@@ -144,7 +144,7 @@ def query_db(history_table_name, clock, cursor):
     return cursor.fetchall()
 
 
-def process_and_send_metrics(rows, latest_clock, wavefront_sender=None, tags=None):
+def process_and_send_metrics(rows, latest_clock, wavefront_sender, tags):
     """Convert each row in rows into the Wavefront format and send to the Wavefront
 proxy. Return the latest clock value found (which will be unchanged if rows was empty)"""
     for (clock, value, host, itemkey) in rows:
