@@ -23,7 +23,8 @@ ZABBIX_PREFIX = "zabbix."
 # Frequency at which records will be retrieved from the DB in seconds
 POLL_INTERVAL = 60
 
-# Limit the amount of records that will be pulled from the DB on each POLL_INTERVAL
+# Limit the amount of records that will be pulled from the DB
+# on each POLL_INTERVAL
 LIMIT = 10000
 
 # Set to False to print values rather than sending to Wavefront
@@ -140,8 +141,9 @@ Query both the history and history_uint tables."""
     cursor.close()
     conn.close()
 
-    print("Processed {} Float Points and {} Integer Points. Press C-c to terminate.".format(
-        float_points_count, int_points_count))
+    print("Processed {} Float Points and {} Integer Points. "
+          "Press C-c to terminate."
+          .format(float_points_count, int_points_count))
     return (history_clock, historyuint_clock)
 
 
@@ -181,7 +183,8 @@ if rows was empty)"""
         # Wavefront metric names must include at least one .
         if "." not in metric:
             warning("Cannot process Zabbix item with key_: {} "
-                "as it contains no . character".format(itemkey))
+                    "as it contains no . character"
+                    .format(itemkey))
             continue
 
         # wavefront_sender will be None if SEND_TO_WF is False
@@ -258,7 +261,8 @@ def error(*msgs):
 def signal_handler(signal, frame):
     """Print the final Float Clock Time"""
     print("Wrapping up. Final Float Clock Time: {}. "
-        "Final Int Clock Time: {}.".format(history_clock, historyuint_clock))
+          "Final Int Clock Time: {}."
+          .format(history_clock, historyuint_clock))
 
     write_last_clock_file(HISTORY_CLOCK_FILEPATH, history_clock)
     write_last_clock_file(HISTORYUINT_CLOCK_FILEPATH, historyuint_clock)
