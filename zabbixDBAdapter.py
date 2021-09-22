@@ -180,7 +180,8 @@ if rows was empty)"""
             latest_clock = clock
         # Wavefront metric names must include at least one .
         if "." not in metric:
-            warning("Cannot process Zabbix item with key_: {} as it contains no . character".format(itemkey))
+            warning("Cannot process Zabbix item with key_: {} "
+                "as it contains no . character".format(itemkey))
             continue
 
         # wavefront_sender will be None if SEND_TO_WF is False
@@ -256,8 +257,8 @@ def error(*msgs):
 
 def signal_handler(signal, frame):
     """Print the final Float Clock Time"""
-    print("Wrapping up. Final Float Clock Time: {}. Final Int Clock Time: {}.".format(
-        history_clock, historyuint_clock))
+    print("Wrapping up. Final Float Clock Time: {}. "
+        "Final Int Clock Time: {}.".format(history_clock, historyuint_clock))
 
     write_last_clock_file(HISTORY_CLOCK_FILEPATH, history_clock)
     write_last_clock_file(HISTORYUINT_CLOCK_FILEPATH, historyuint_clock)
