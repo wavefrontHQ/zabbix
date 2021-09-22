@@ -23,8 +23,7 @@ ZABBIX_PREFIX = "zabbix."
 # Frequency at which records will be retrieved from the DB in seconds
 POLL_INTERVAL = 60
 
-# Limit the amount of records that will be pulled from the DB on each
-# POLL_INTERVAL
+# Limit the amount of records that will be pulled from the DB on each POLL_INTERVAL
 LIMIT = 10000
 
 # Set to False to print values rather than sending to Wavefront
@@ -181,7 +180,7 @@ if rows was empty)"""
             latest_clock = clock
         # Wavefront metric names must include at least one .
         if "." not in metric:
-            warning("Cannot process Zabbix item with key_: {} as it contains no . character:".format(itemkey))
+            warning("Cannot process Zabbix item with key_: {} as it contains no . character".format(itemkey))
             continue
 
         # wavefront_sender will be None if SEND_TO_WF is False
