@@ -116,7 +116,7 @@ always have a live connection."""
     return wavefront_sender
 
 
-def fetch_next_metrics(history_clock, historyuint_clock, wavefront_sender):
+def fetch_next_metrics(history_clock, historyuint_clock, wavefront_sender, tags):
     """Send the next batch of Floating point and Integer metrics to the Wavefront
 Proxy and return the last clock time for int and float metrics as a tuple.
 
@@ -128,7 +128,7 @@ Query both the history and history_uint tables."""
     float_rows = query_db(HISTORY_TABLE, history_clock, cursor)
     float_points_count = len(float_rows)
     history_clock = process_and_send_metrics(
-        float_rows, history_clock, wavefront_sender)
+        float_rows, history_clock, wavefront_sender, tags)
 
     # Process the history_uint table which contains integer metrics
     int_rows = query_db(HISTORY_TABLE_UINT, historyuint_clock, cursor)
@@ -136,7 +136,8 @@ Query both the history and history_uint tables."""
     historyuint_clock = process_and_send_metrics(
         int_rows,
         historyuint_clock,
-        wavefront_sender)
+        wavefront_sender,
+        tags)
 
     cursor.close()
     conn.close()
@@ -279,6 +280,7 @@ if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
 
     wavefront_sender = None
+    tags = None
     if SEND_TO_WF:
         wavefront_sender = get_wavefront_client()
 
@@ -286,7 +288,7 @@ if __name__ == "__main__":
     while True:
         try:
             history_clock, historyuint_clock = fetch_next_metrics(
-                history_clock, historyuint_clock, wavefront_sender)
+                history_clock, historyuint_clock, wavefront_sender, tags)
 
             msg = "Latest Float Point: {}. Latest Integer Point: {}."
             print(msg.format(
