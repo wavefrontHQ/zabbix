@@ -28,8 +28,8 @@ We have set the SEND_TO_WF parameter to False initially. This will cause the scr
 To get started:
 
 #+BEGIN_EXAMPLE
-chmod +x zabbixDBAdapter.py
-./zabbixDBAdapter.py
+chmod +x zabbix_db_adapter.py
+./zabbix_db_adapter.py
 #+END_EXAMPLE
 
 The script will print some output every POLL_INTERVAL. You can stop it at any time by pressing Control-c
